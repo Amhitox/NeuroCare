@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:neurocare/utils/constants/colors.dart';
-import 'package:neurocare/utils/constants/responisve.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../utils/constants/colors.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 30, left: 20, right: 20),
+                padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -38,8 +38,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: CircleAvatar(
                             radius: 24,
-                            backgroundColor: Colors.white,
-                            child: Image.asset('assets/images/avatar.png'),
+                            backgroundColor: Theme.of(context).cardColor,
+                            child: ClipOval(
+                              child: Image.asset(
+                                'assets/images/avatar.png',
+                                width: 48,
+                                height: 48,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 15),
@@ -51,13 +58,21 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: GoogleFonts.poppins(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.color,
                               ),
                             ),
                             Text(
                               'How are you feeling today?',
                               style: GoogleFonts.poppins(
                                 fontSize: 14,
-                                color: Colors.grey[600],
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.color
+                                    ?.withOpacity(0.6),
                               ),
                             ),
                           ],
@@ -68,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       onPressed: () {},
                       icon: const Icon(Icons.notifications_outlined),
                       style: IconButton.styleFrom(
-                        backgroundColor: Colors.white,
+                        backgroundColor: Theme.of(context).cardColor,
                         padding: const EdgeInsets.all(12),
                       ),
                     ),
@@ -81,12 +96,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 25),
-                    // Health Status Section
                     Text(
                       'Health Status',
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
+                        color: Theme.of(context).textTheme.titleLarge?.color,
                       ),
                     ),
                     const SizedBox(height: 15),
@@ -149,10 +164,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Container(
                             padding: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Theme.of(context).cardColor,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: Colors.grey.withOpacity(0.2),
+                                color: Theme.of(context).dividerColor,
                               ),
                             ),
                             child: Column(
@@ -176,7 +191,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Text(
                                       'Streak',
                                       style: GoogleFonts.poppins(
-                                        color: Colors.black87,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.color,
                                         fontSize: 14,
                                       ),
                                     ),
@@ -186,7 +204,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Text(
                                   '7 Days',
                                   style: GoogleFonts.poppins(
-                                    color: Colors.black87,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.color,
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -197,9 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-
                     const SizedBox(height: 30),
-                    // Today's Overview with modern stats
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -208,6 +227,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
+                            color:
+                                Theme.of(context).textTheme.titleLarge?.color,
                           ),
                         ),
                         TextButton(
@@ -226,11 +247,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.1),
+                            color:
+                                Theme.of(context).shadowColor.withOpacity(0.1),
                             spreadRadius: 2,
                             blurRadius: 8,
                             offset: const Offset(0, 2),
@@ -245,9 +267,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             value: '2/3',
                             color: AppColors.primary,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 12),
-                            child: Divider(height: 1),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: Divider(
+                              height: 1,
+                              color: Theme.of(context).dividerColor,
+                            ),
                           ),
                           _buildOverviewItem(
                             icon: Icons.water_drop_outlined,
@@ -255,9 +280,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             value: '1.5L',
                             color: Colors.blue,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 12),
-                            child: Divider(height: 1),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: Divider(
+                              height: 1,
+                              color: Theme.of(context).dividerColor,
+                            ),
                           ),
                           _buildOverviewItem(
                             icon: Icons.bedtime_outlined,
@@ -268,14 +296,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-
                     const SizedBox(height: 30),
-                    // Upcoming Reminders with modern cards
                     Text(
                       'Upcoming Reminders',
                       style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
+                        color: Theme.of(context).textTheme.titleLarge?.color,
                       ),
                     ),
                     const SizedBox(height: 15),
@@ -291,50 +318,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildQuickActionCard({
-    required IconData icon,
-    required String title,
-    required Color color,
-  }) {
-    return Container(
-      width: context.width * 0.27,
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.1),
-            spreadRadius: 2,
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(icon, color: color, size: 24),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -362,6 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: GoogleFonts.poppins(
               fontSize: 14,
               fontWeight: FontWeight.w500,
+              color: Theme.of(context).textTheme.titleMedium?.color,
             ),
           ),
         ),
@@ -384,11 +368,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Theme.of(context).shadowColor.withOpacity(0.1),
             spreadRadius: 2,
             blurRadius: 8,
             offset: const Offset(0, 2),
@@ -420,7 +404,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     time,
                     style: GoogleFonts.poppins(
                       fontSize: 13,
-                      color: Colors.grey[600],
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.color
+                          ?.withOpacity(0.6),
                     ),
                   ),
                   Text(
@@ -428,13 +416,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
+                      color: Theme.of(context).textTheme.titleLarge?.color,
                     ),
                   ),
                   Text(
                     subtitle,
                     style: GoogleFonts.poppins(
                       fontSize: 14,
-                      color: Colors.grey[600],
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.color
+                          ?.withOpacity(0.6),
                     ),
                   ),
                 ],
@@ -442,8 +435,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.chevron_right),
-              color: Colors.grey[400],
+              icon: Icon(
+                Icons.chevron_right,
+                color: Theme.of(context).iconTheme.color?.withOpacity(0.4),
+              ),
             ),
           ],
         ),

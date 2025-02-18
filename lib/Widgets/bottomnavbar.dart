@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:neurocare/Screens/medication_screen.dart';
+import 'package:neurocare/Screens/seizure_screen.dart';
+import 'package:neurocare/Screens/setting_screen.dart';
 import 'package:neurocare/utils/constants/colors.dart';
 
 import '../Screens/home_screen.dart';
@@ -14,6 +17,9 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
     HomeScreen(),
+    MedicationScreen(),
+    SeizureScreen(),
+    SettingScreen()
   ];
 
   void _onItemTapped(int index) {

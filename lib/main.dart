@@ -1,20 +1,28 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:neurocare/Screens/home_screen.dart';
 import 'package:neurocare/Widgets/bottomnavbar.dart';
-import 'utils/theme/theme.dart';
+import 'providers/theme_provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeProvider);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
+      themeMode: themeMode,
+      theme: lightTheme,
+      darkTheme: darkTheme,
       home: SafeArea(child: BottomNavScreen()),
     );
   }
