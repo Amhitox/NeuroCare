@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:neurocare/Screens/splash_screen.dart';
+import 'package:neurocare/Screens/home_screen.dart';
+import 'package:neurocare/Widgets/bottomnavbar.dart';
 import 'utils/theme/theme.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: SafeArea(child: SplashScreen()),
+      home: SafeArea(child: BottomNavScreen()),
     );
   }
 }

@@ -38,7 +38,11 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.hotel), label: 'Search')
+          BottomNavigationBarItem(
+              icon: Icon(Icons.medication), label: 'Medications'),
+          BottomNavigationBarItem(icon: Icon(Icons.radio), label: 'Seizures'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'settings'),
         ],
       ),
     );

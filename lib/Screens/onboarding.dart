@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:neurocare/Screens/home_screen.dart';
 import 'package:neurocare/utils/constants/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -73,9 +74,12 @@ class _OnboardingState extends State<OnBoarding> {
                       WidgetStatePropertyAll(DarkAppColors.primary),
                 ),
                 onPressed: () {
-                  controller.nextPage(
-                      duration: Duration(milliseconds: 600),
-                      curve: Curves.linear);
+                  (indexPage == 2)
+                      ? Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()))
+                      : controller.nextPage(
+                          duration: Duration(milliseconds: 600),
+                          curve: Curves.linear);
                 },
                 child: (indexPage != 2)
                     ? Text(
