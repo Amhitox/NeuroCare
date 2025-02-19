@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:neurocare/Screens/home_screen.dart';
+import 'package:neurocare/Screens/login_screen.dart';
+import 'package:neurocare/Widgets/bottomnavbar.dart';
 import 'package:neurocare/utils/constants/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -18,6 +20,7 @@ class _OnboardingState extends State<OnBoarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,8 +78,10 @@ class _OnboardingState extends State<OnBoarding> {
                 ),
                 onPressed: () {
                   (indexPage == 2)
-                      ? Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()))
+                      ? Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()))
                       : controller.nextPage(
                           duration: Duration(milliseconds: 600),
                           curve: Curves.linear);

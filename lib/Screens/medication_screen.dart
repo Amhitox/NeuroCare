@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:neurocare/Screens/add_medication_screen.dart';
 
 import '../utils/constants/colors.dart';
-import '../providers/theme_provider.dart';
 
 class MedicationScreen extends ConsumerStatefulWidget {
   const MedicationScreen({super.key});

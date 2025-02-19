@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:neurocare/Screens/login_screen.dart';
+import 'package:neurocare/Screens/signup_screen.dart';
+import 'package:neurocare/Screens/splash_screen.dart';
 import 'package:neurocare/Widgets/bottomnavbar.dart';
 import 'providers/theme_provider.dart';
 
@@ -23,7 +26,7 @@ class MyApp extends ConsumerWidget {
       themeMode: themeMode,
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: SafeArea(child: BottomNavScreen()),
+      home: SafeArea(child: SplashScreen()),
     );
   }
 }

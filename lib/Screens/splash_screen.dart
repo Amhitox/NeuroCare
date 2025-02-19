@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:neurocare/Screens/onboarding.dart';
+import 'package:neurocare/utils/constants/colors.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -15,7 +16,7 @@ class SplashScreen extends StatelessWidget {
           height: 300,
         ),
         splashTransition: SplashTransition.fadeTransition,
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.background,
         nextScreen: OnBoarding(),
       ),
     );

@@ -15,7 +15,7 @@ class SettingScreen extends ConsumerStatefulWidget {
 class _SettingScreenState extends ConsumerState<SettingScreen> {
   bool _notificationsEnabled = true;
   bool _locationEnabled = false;
-  String _selectedLanguage = 'English';
+  final String _selectedLanguage = 'English';
 
   @override
   Widget build(BuildContext context) {
@@ -452,7 +452,7 @@ class _SettingScreenState extends ConsumerState<SettingScreen> {
     bool isDestructive = false,
   }) {
     final Color textColor = isDestructive
-        ? Colors.red
+        ? const Color.fromARGB(255, 238, 184, 5)
         : Theme.of(context).textTheme.titleMedium!.color!;
 
     return InkWell(
@@ -465,13 +465,17 @@ class _SettingScreenState extends ConsumerState<SettingScreen> {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: (isDestructive ? Colors.red : AppColors.primary)
+                color: (isDestructive
+                        ? const Color.fromARGB(255, 238, 184, 5)
+                        : AppColors.primary)
                     .withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
                 icon,
-                color: isDestructive ? Colors.red : AppColors.primary,
+                color: isDestructive
+                    ? const Color.fromARGB(255, 238, 184, 5)
+                    : AppColors.primary,
                 size: 20,
               ),
             ),

@@ -18,7 +18,7 @@ class _AddMedicationScreenState extends ConsumerState<AddMedicationScreen> {
   final _dosageController = TextEditingController();
   final _pillCountController = TextEditingController();
   final _instructionsController = TextEditingController();
-  List<TimeOfDay> _schedule = [];
+  final List<TimeOfDay> _schedule = [];
 
   @override
   void dispose() {
