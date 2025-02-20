@@ -6,7 +6,7 @@ class Seizure {
   final List<String> triggers;
   final String? notes;
   final List<String>? symptoms;
-  final bool wasAlerted; // If emergency contacts were notified
+  final bool wasAlerted;
   final String? location;
 
   Seizure({
