@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../providers/medication_provider.dart';
-import '../utils/constants/colors.dart';
+import '../../providers/medication_provider.dart';
+import '../../utils/constants/colors.dart';
 
 class AddMedicationScreen extends ConsumerStatefulWidget {
   const AddMedicationScreen({super.key});

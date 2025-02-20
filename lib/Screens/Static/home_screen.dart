@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../utils/constants/colors.dart';
+import 'package:neurocare/Screens/Client/medication_screen.dart';
+import 'package:neurocare/Widgets/bottomnavbar.dart';
+import '../../utils/constants/colors.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -78,14 +80,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           ],
                         ),
                       ],
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.notifications_outlined),
-                      style: IconButton.styleFrom(
-                        backgroundColor: Theme.of(context).cardColor,
-                        padding: const EdgeInsets.all(12),
-                      ),
                     ),
                   ],
                 ),
@@ -220,7 +214,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                     const SizedBox(height: 30),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           'Today\'s Overview',
@@ -229,16 +223,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             fontWeight: FontWeight.w600,
                             color:
                                 Theme.of(context).textTheme.titleLarge?.color,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'See Details',
-                            style: GoogleFonts.poppins(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w500,
-                            ),
                           ),
                         ),
                       ],
@@ -434,7 +418,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BottomNavScreen(
+                            index: 1,
+                          ))),
               icon: Icon(
                 Icons.chevron_right,
                 color: Theme.of(context).iconTheme.color?.withOpacity(0.4),

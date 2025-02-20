@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neurocare/Screens/add_medication_screen.dart';
+import 'package:neurocare/Screens/Client/active_medications_screen.dart';
+import 'package:neurocare/Screens/Client/add_medication_screen.dart';
+import 'package:neurocare/Screens/Client/schedule_screen.dart';
 
-import '../utils/constants/colors.dart';
+import '../../utils/constants/colors.dart';
 
 class MedicationScreen extends ConsumerStatefulWidget {
   const MedicationScreen({super.key});
@@ -126,7 +128,12 @@ class _MedicationScreenState extends ConsumerState<MedicationScreen> {
                         ),
                       ),
                       TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ScheduleScreen()));
+                        },
                         icon: Icon(
                           Icons.calendar_today,
                           size: 18,
@@ -193,7 +200,13 @@ class _MedicationScreenState extends ConsumerState<MedicationScreen> {
                         ),
                       ),
                       TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ActiveMedicationsScreen()));
+                        },
                         icon: Icon(
                           Icons.list,
                           size: 18,

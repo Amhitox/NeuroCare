@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../utils/constants/colors.dart';
+import '../../utils/constants/colors.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
@@ -29,7 +29,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       final email = _formKey.currentState?.value['email'];
       final password = _formKey.currentState?.value['password'];
 
-      // TODO: Implement signup logic
       Future.delayed(const Duration(seconds: 2), () {
         setState(() => _isLoading = false);
         Navigator.pushReplacementNamed(context, '/home');

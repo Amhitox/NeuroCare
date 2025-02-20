@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../providers/seizure_provider.dart';
-import '../utils/constants/colors.dart';
+import '../../providers/seizure_provider.dart';
+import '../../utils/constants/colors.dart';
 
 class AddSeizureScreen extends ConsumerStatefulWidget {
   const AddSeizureScreen({super.key});

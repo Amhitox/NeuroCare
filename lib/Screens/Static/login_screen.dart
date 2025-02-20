@@ -4,10 +4,10 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:neurocare/Screens/signup_screen.dart';
+import 'package:neurocare/Screens/Client/signup_screen.dart';
 import 'package:neurocare/Widgets/bottomnavbar.dart';
 
-import '../utils/constants/colors.dart';
+import '../../utils/constants/colors.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});

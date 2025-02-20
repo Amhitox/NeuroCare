@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neurocare/Screens/add_seizure_screen.dart';
+import 'package:neurocare/Screens/Client/add_seizure_screen.dart';
 
-import '../utils/constants/colors.dart';
+import '../../utils/constants/colors.dart';
+import 'recent_events_screen.dart';
 
 class SeizureScreen extends ConsumerStatefulWidget {
   const SeizureScreen({super.key});
@@ -217,7 +218,13 @@ class _SeizureScreenState extends ConsumerState<SeizureScreen> {
                         ),
                       ),
                       TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RecentEventsScreen()),
+                          );
+                        },
                         icon: Icon(
                           Icons.history,
                           size: 18,

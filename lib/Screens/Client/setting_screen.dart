@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../utils/constants/colors.dart';
-import '../providers/theme_provider.dart';
+import '../../utils/constants/colors.dart';
+import '../../providers/theme_provider.dart';
 
 class SettingScreen extends ConsumerStatefulWidget {
   const SettingScreen({super.key});

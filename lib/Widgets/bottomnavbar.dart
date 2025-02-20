@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:neurocare/Screens/medication_screen.dart';
-import 'package:neurocare/Screens/seizure_screen.dart';
-import 'package:neurocare/Screens/setting_screen.dart';
+import 'package:neurocare/Screens/Client/medication_screen.dart';
+import 'package:neurocare/Screens/Client/seizure_screen.dart';
+import 'package:neurocare/Screens/Client/setting_screen.dart';
 import 'package:neurocare/utils/constants/colors.dart';
 
-import '../Screens/home_screen.dart';
+import '../Screens/Static/home_screen.dart';
 
 class BottomNavScreen extends StatefulWidget {
-  const BottomNavScreen({super.key});
+  late int index;
+  BottomNavScreen({super.key, this.index = 0});
 
   @override
   State<BottomNavScreen> createState() => _BottomNavScreenState();
@@ -21,6 +22,11 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     SeizureScreen(),
     SettingScreen()
   ];
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.index;
+  }
 
   void _onItemTapped(int index) {
     setState(() {
