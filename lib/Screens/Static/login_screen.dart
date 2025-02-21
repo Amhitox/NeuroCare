@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:neurocare/Screens/Client/signup_screen.dart';
+import 'package:neurocare/Screens/Static/forgot_password_screen.dart';
+import 'package:neurocare/Screens/Static/signup_screen.dart';
+import 'package:neurocare/Serivces/firebase_api.dart';
 import 'package:neurocare/Widgets/bottomnavbar.dart';
 
 import '../../utils/constants/colors.dart';
@@ -21,19 +24,37 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool _isLoading = false;
   bool _obscureText = true;
 
-  void _onSubmit() {
+  dynamic _onSubmit() async {
     if (_formKey.currentState?.saveAndValidate() ?? false) {
-      setState(() => _isLoading = true);
+      try {
+        setState(() => _isLoading = true);
 
-      final email = _formKey.currentState?.value['email'];
-      final password = _formKey.currentState?.value['password'];
+        final email = _formKey.currentState?.value['email'];
+        final password = _formKey.currentState?.value['password'];
+        final user = await Auth.login(email, password);
 
-      Future.delayed(const Duration(seconds: 2), () {
-        setState(() => _isLoading = false);
-      });
+        if (user != null) {
+          if (mounted) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => BottomNavScreen()),
+            );
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(e.toString()),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } finally {
+        if (mounted) {
+          setState(() => _isLoading = false);
+        }
+      }
     }
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => BottomNavScreen()));
   }
 
   @override
@@ -101,6 +122,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         keyboardType: TextInputType.emailAddress,
                         validators: [
                           FormBuilderValidators.required(),
+                          FormBuilderValidators.email(),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -112,14 +134,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         isPassword: true,
                         validators: [
                           FormBuilderValidators.required(),
-                          FormBuilderValidators.minLength(6),
+                          FormBuilderValidators.minLength(8),
                         ],
                       ),
                       const SizedBox(height: 12),
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ForgotPasswordScreen())),
                           style: TextButton.styleFrom(
                             foregroundColor: AppColors.primary,
                           ),
@@ -157,7 +183,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     required IconData icon,
     bool isPassword = false,
     TextInputType? keyboardType,
-    List<FormFieldValidator>? validators,
+    List<FormFieldValidator<String>>? validators,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -293,7 +319,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       children: [
         _buildSocialButton(
           icon: FontAwesomeIcons.google,
-          onPressed: () {},
+          onPressed: () async {
+            UserCredential? result = await Auth.loginWithGoogle();
+            if (result != null && mounted) {
+              print("Signed in as result");
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => BottomNavScreen()),
+                  (route) => false);
+            } else {
+              print("Sign-in failed");
+            }
+          },
         ),
         const SizedBox(width: 20),
         _buildSocialButton(

@@ -45,6 +45,7 @@ class RecentEventsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Icon(Icons.arrow_back_ios_new_outlined),
         title: Text(
           'Recent Events',
           style: GoogleFonts.poppins(

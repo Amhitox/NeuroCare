@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:neurocare/Screens/Static/splash_screen.dart';
+import 'package:neurocare/Screens/Client/widget_tree.dart';
 import 'providers/theme_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -26,7 +26,7 @@ class MyApp extends ConsumerWidget {
       themeMode: themeMode,
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: SafeArea(child: SplashScreen()),
+      home: SafeArea(child: WidgetTree()),
     );
   }
 }

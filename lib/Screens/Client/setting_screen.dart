@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:neurocare/Screens/Static/login_screen.dart';
+import 'package:neurocare/providers/user_provider.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../../Serivces/firebase_api.dart';
 import '../../utils/constants/colors.dart';
 import '../../providers/theme_provider.dart';
 
@@ -21,6 +25,7 @@ class _SettingScreenState extends ConsumerState<SettingScreen> {
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeProvider);
     final isDarkMode = themeMode == ThemeMode.dark;
+    final user = ref.watch(userProvider);
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -86,27 +91,47 @@ class _SettingScreenState extends ConsumerState<SettingScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Amhita Singh',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.color,
-                                ),
-                              ),
-                              Text(
-                                'amhita.singh@gmail.com',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.color
-                                      ?.withOpacity(0.6),
-                                ),
+                              user.when(
+                                data: (user) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        user!['name'],
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge
+                                              ?.color,
+                                        ),
+                                      ),
+                                      Text(
+                                        user['email'],
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.color
+                                              ?.withOpacity(0.6),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                                loading: () {
+                                  return Shimmer.fromColors(
+                                      baseColor: Colors.grey,
+                                      highlightColor: Colors.blueGrey,
+                                      child: Container(
+                                        width: 100,
+                                      ));
+                                },
+                                error: (error, stack) =>
+                                    Text('Something went wrong!'),
                               ),
                             ],
                           ),
@@ -203,7 +228,16 @@ class _SettingScreenState extends ConsumerState<SettingScreen> {
                         icon: Icons.logout,
                         title: 'Sign Out',
                         subtitle: 'Sign out from your account',
-                        onTap: () {},
+                        onTap: () async {
+                          await Auth.signOut();
+                          if (mounted) {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()),
+                                (route) => false);
+                          }
+                        },
                         isDestructive: true,
                       ),
                     ],

@@ -4,7 +4,7 @@ import 'package:neurocare/Screens/Client/seizure_screen.dart';
 import 'package:neurocare/Screens/Client/setting_screen.dart';
 import 'package:neurocare/utils/constants/colors.dart';
 
-import '../Screens/Static/home_screen.dart';
+import '../Screens/Client/home_screen.dart';
 
 class BottomNavScreen extends StatefulWidget {
   late int index;

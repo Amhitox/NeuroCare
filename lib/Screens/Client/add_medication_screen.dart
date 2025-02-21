@@ -66,6 +66,7 @@ class _AddMedicationScreenState extends ConsumerState<AddMedicationScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        leading: Icon(Icons.arrow_back_ios),
         title: Text(
           'Add Medication',
           style: GoogleFonts.poppins(

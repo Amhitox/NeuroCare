@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "450879449291",
+    "project_id": "neurocare-976a1",
+    "storage_bucket": "neurocare-976a1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450879449291:android:ced1e20eced670a334d34e",
+        "android_client_info": {
+          "package_name": "com.example.neurocare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450879449291-k9ndp91f9i39n2jgiqgb2m8ddrsr412n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.neurocare",
+            "certificate_hash": "525ef149a0e6324c9f9c7c180d8ab717a66f8c3e"
+          }
+        },
+        {
+          "client_id": "450879449291-qop3loef07hckf5g050at06r7ksrkaqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQL9OzPTe21vYDES1mKrXstAANdVFkNKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450879449291-68otka07ce1nmu5af2lcdh0oeo98p52g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -105,6 +105,7 @@ class _AddSeizureScreenState extends ConsumerState<AddSeizureScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        leading: Icon(Icons.arrow_back_ios),
         title: Text(
           'Record Seizure',
           style: GoogleFonts.poppins(

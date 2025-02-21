@@ -3,12 +3,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GoogleSignInService {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static final GoogleSignIn _googleSignIn = GoogleSignIn();
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<UserCredential?> signInWithGoogle() async {
+  static Future<UserCredential?> signInWithGoogle() async {
     try {
+      await _googleSignIn.signOut();
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser == null) return null;
@@ -31,10 +32,7 @@ class GoogleSignInService {
           'phone': userCredential.user!.phoneNumber ?? '',
           'status': 'active',
           'joinDate': DateTime.now().toIso8601String(),
-          'emergencyContacts': [],
           'medicalHistory': [],
-          'role': 'client',
-          'signInMethod': 'google',
         });
       }
 

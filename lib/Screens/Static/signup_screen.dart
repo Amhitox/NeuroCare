@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../Serivces/firebase_api.dart';
+import '../../Widgets/bottomnavbar.dart';
 import '../../utils/constants/colors.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
@@ -21,18 +23,38 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   bool _obscureConfirmText = true;
   bool _agreedToTerms = false;
 
-  void _onSubmit() {
+  dynamic _onSubmit() async {
+    await Auth.signOut();
     if (_formKey.currentState?.saveAndValidate() ?? false) {
-      setState(() => _isLoading = true);
+      try {
+        setState(() => _isLoading = true);
 
-      final name = _formKey.currentState?.value['name'];
-      final email = _formKey.currentState?.value['email'];
-      final password = _formKey.currentState?.value['password'];
+        final email = _formKey.currentState?.value['email'];
+        final password = _formKey.currentState?.value['password'];
+        final name = _formKey.currentState?.value['name'];
+        final user = await Auth.signUp(email, password, name);
 
-      Future.delayed(const Duration(seconds: 2), () {
-        setState(() => _isLoading = false);
-        Navigator.pushReplacementNamed(context, '/home');
-      });
+        if (user != null) {
+          if (mounted) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => BottomNavScreen()),
+            );
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(e.toString()),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } finally {
+        if (mounted) {
+          setState(() => _isLoading = false);
+        }
+      }
     }
   }
 
@@ -100,6 +122,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                         keyboardType: TextInputType.emailAddress,
                         validators: [
                           FormBuilderValidators.required(),
+                          FormBuilderValidators.email()
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -172,7 +195,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     bool obscureText = false,
     VoidCallback? onToggleVisibility,
     TextInputType? keyboardType,
-    List<FormFieldValidator>? validators,
+    List<FormFieldValidator<String>>? validators,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -346,7 +369,18 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       children: [
         _buildSocialButton(
           icon: FontAwesomeIcons.google,
-          onPressed: () {},
+          onPressed: () async {
+            var user = await Auth.loginWithGoogle();
+            if (user != null && mounted) {
+              print('sighup succc');
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => BottomNavScreen()),
+                  (route) => false);
+            } else {
+              print('bad sign up');
+            }
+          },
         ),
         const SizedBox(width: 20),
         _buildSocialButton(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:neurocare/Widgets/bottomnavbar.dart';
+import 'package:neurocare/providers/user_provider.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../utils/constants/colors.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -14,6 +16,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(userProvider);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
@@ -54,16 +57,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Hi Amhita',
-                              style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
-                                    ?.color,
+                            user.when(
+                              data: (user) => Text(
+                                'Hi ${user!['name'].toString().split(' ')[0]}',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.color,
+                                ),
                               ),
+                              loading: () {
+                                return Shimmer.fromColors(
+                                    baseColor: Colors.grey,
+                                    highlightColor: Colors.blueGrey,
+                                    child: Container(
+                                      width: 100,
+                                    ));
+                              },
+                              error: (error, stack) =>
+                                  Text('Something went wrong!'),
                             ),
                             Text(
                               'How are you feeling today?',
